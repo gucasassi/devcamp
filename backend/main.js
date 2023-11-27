@@ -8,9 +8,11 @@ dotenv.config(".env");
 // Initialize Express app
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Hi there!");
-});
+// Routes
+const bootcamps = require("./routes/bootcamps");
+
+// Mount Routes
+app.use("/api/v1/bootcamps", bootcamps);
 
 // Define the port to run the server on
 const PORT = process.env.APP_PORT || 3000;
