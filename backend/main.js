@@ -1,5 +1,6 @@
 // Importing required modules
 const dotenv = require("dotenv");
+const morgan = require("morgan");
 const express = require("express");
 
 // Load environment variables
@@ -7,6 +8,9 @@ dotenv.config(".env");
 
 // Initialize Express app
 const app = express();
+
+// Morgan logger
+app.use(morgan("dev"));
 
 // Routes
 const bootcamps = require("./routes/bootcamps");
