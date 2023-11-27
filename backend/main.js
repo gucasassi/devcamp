@@ -1,14 +1,21 @@
+// Importing required modules
+const dotenv = require("dotenv");
 const express = require("express");
 
-// Create an express app.
+// Load environment variables
+dotenv.config(".env");
+
+// Initialize Express app
 const app = express();
 
-// Define a route handler just for test
 app.get("/", (req, res) => {
   res.send("Hi there!");
 });
 
+// Define the port to run the server on
+const PORT = process.env.APP_PORT || 3000;
+
 // Start the server
-app.listen(3000, () => {
-  console.log(`Listening on port 3000`);
+app.listen(PORT, () => {
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
 });
