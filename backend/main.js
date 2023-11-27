@@ -2,9 +2,13 @@
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const express = require("express");
+const connectMongoDB = require("./configs/mongo-db");
 
 // Load environment variables
 dotenv.config(".env");
+
+// Connect to MongoDB
+connectMongoDB();
 
 // Initialize Express app
 const app = express();
