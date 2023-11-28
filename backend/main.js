@@ -17,9 +17,11 @@ const app = express();
 app.use(morgan("dev"));
 
 // Routes
+const health = require("./routes/health");
 const bootcamps = require("./routes/bootcamps");
 
 // Mount Routes
+app.use("/api/v1/health", health);
 app.use("/api/v1/bootcamps", bootcamps);
 
 // Define the port to run the server on
