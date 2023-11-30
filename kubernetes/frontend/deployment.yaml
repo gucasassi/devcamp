@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devcamp-front
+  namespace: devcamp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devcamp-front
+  template:
+    metadata:
+      labels:
+        app: devcamp-front
+    spec:
+      containers:
+        - name: devcamp-front
+          image: gucasassi/devcamp-front:1.0.0
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "250m"
+          ports:
+            - containerPort: 80

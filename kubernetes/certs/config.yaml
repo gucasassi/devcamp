@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cert-vars
+  namespace: devcamp
+data:
+  #########The next 2 vars are for the cert management
+  namespace: "devcamp"
+  clusterfqdn: "devcamp.gucasassi.com"
+  admin_email: "gucasassi@gmail.com"

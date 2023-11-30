@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: devcamp-back
+  namespace: devcamp
+spec:
+  selector:
+    app: devcamp-back
+  ports:
+    - port: 3000
+      targetPort: 3000

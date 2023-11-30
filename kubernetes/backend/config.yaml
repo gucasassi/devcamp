@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: devcamp-back-config
+  namespace: devcamp
+data:
+  app_port: "3000"

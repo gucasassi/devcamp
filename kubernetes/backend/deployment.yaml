@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devcamp-back
+  namespace: devcamp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devcamp-back
+  template:
+    metadata:
+      labels:
+        app: devcamp-back
+    spec:
+      containers:
+        - name: devcamp-back
+          image: gucasassi/devcamp-back:1.0.0
+          imagePullPolicy: Always
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "250m"
+          ports:
+            - containerPort: 3000
+          env:
+            - name: APP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: devcamp-back-config
+                  key: app_port
+
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: devcamp-back-secret
+                  key: mongodb_uri

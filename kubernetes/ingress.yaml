@@ -1,0 +1,41 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  annotations:
+    konghq.com/https-status-redirect-code: "301"
+    konghq.com/strip-path: "false"
+    konghq.com/preserve-host: "true"
+    konghq.com/protocols: http,https
+    konghq.com/http-forwarded: "preserve"
+spec:
+  tls:
+    - hosts:
+        - devcamp.gucasassi.com
+      secretName: sitecert
+  ingressClassName: kong
+  rules:
+    - host: devcamp.gucasassi.com
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: devcamp-front
+                port:
+                  number: 80
+          - path: "/api"
+            pathType: Prefix
+            backend:
+              service:
+                name: devcamp-back
+                port:
+                  number: 3000
+          - path: /.well-known/acme-challenge
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: certbot
+                port:
+                  number: 80

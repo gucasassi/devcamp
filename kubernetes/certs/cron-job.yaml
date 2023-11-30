@@ -1,0 +1,44 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: certbot
+  namespace: devcamp
+spec:
+  schedule: "0 0 */30 * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: certbot
+        spec:
+          containers:
+            - name: certbot
+              image: gucasassi/certbot:1.1.0
+              env:
+                - name: KUBECONFIG
+                  value: "/root/.kube/config"
+                - name: clusterfqdn
+                  valueFrom:
+                    configMapKeyRef:
+                      name: cert-vars
+                      key: clusterfqdn
+                - name: admin_email
+                  valueFrom:
+                    configMapKeyRef:
+                      name: cert-vars
+                      key: admin_email
+                - name: namespace
+                  valueFrom:
+                    configMapKeyRef:
+                      name: cert-vars
+                      key: namespace
+              volumeMounts:
+                - name: kubeconfig-volume
+                  mountPath: "/root/.kube/config"
+                  subPath: config
+          volumes:
+            - name: kubeconfig-volume
+              secret:
+                secretName: kcon
+          restartPolicy: OnFailure
