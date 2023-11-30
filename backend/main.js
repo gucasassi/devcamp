@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const colors = require("colors");
 const express = require("express");
+const errorHandler = require("./middlewares/error");
 const connectMongoDB = require("./configs/mongo-db");
 
 // Load environment variables
@@ -24,9 +25,12 @@ app.use(morgan("dev"));
 const health = require("./routes/health");
 const bootcamps = require("./routes/bootcamps");
 
-// Mount Routes
+// Add Routers
 app.use("/api/v1/health", health);
 app.use("/api/v1/bootcamps", bootcamps);
+
+// Error handler
+app.use(errorHandler);
 
 // Define the port to run the server on
 const PORT = process.env.APP_PORT || 3000;
