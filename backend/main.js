@@ -1,6 +1,7 @@
 // Importing required modules
 const dotenv = require("dotenv");
 const morgan = require("morgan");
+const colors = require("colors");
 const express = require("express");
 const connectMongoDB = require("./configs/mongo-db");
 
@@ -29,11 +30,13 @@ const PORT = process.env.APP_PORT || 3000;
 
 // Start the server
 const server = app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+  console.log(
+    `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow
+  );
 });
 
 // Handle unhandled promise rejections
 process.on("unhandledRejection", (err, promise) => {
-  console.log(`Error: ${err.message}`);
+  console.log(`Error: ${err.message}`.red);
   server.close(() => process.exit(1));
 });
