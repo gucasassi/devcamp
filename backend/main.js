@@ -23,10 +23,12 @@ app.use(morgan("dev"));
 
 // Routes
 const health = require("./routes/health");
+const auth = require("./routes/auth");
 const bootcamps = require("./routes/bootcamps");
 
 // Add Routers
 app.use("/api/v1/health", health);
+app.use("/api/v1/auth", auth);
 app.use("/api/v1/bootcamps", bootcamps);
 
 // Error handler
