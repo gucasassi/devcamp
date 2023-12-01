@@ -1,7 +1,9 @@
+// Imports
 const slugify = require("slugify");
 const mongoose = require("mongoose");
 const geocoder = require("../utils/geocoder");
 
+// Create mongoose schema
 const BootcampSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -115,4 +117,5 @@ BootcampSchema.pre("save", async function (next) {
   next();
 });
 
+// Export model
 module.exports = mongoose.model("Bootcamp", BootcampSchema);
