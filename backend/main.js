@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const colors = require("colors");
 const express = require("express");
 const errorHandler = require("./middlewares/error");
-const connectMongoDB = require("./configs/mongo-db");
+const connectMongoDB = require("./configs/mongodb");
 
 // Load environment variables
 dotenv.config(".env");
