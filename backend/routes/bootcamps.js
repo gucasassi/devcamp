@@ -6,6 +6,7 @@ const {
   createBootcamp,
   updateBootcamp,
   deleteBootcamp,
+  getBootcampsWithinRadius,
 } = require("../controllers/bootcamps");
 
 // Creating a router
@@ -14,6 +15,7 @@ const router = express.Router();
 // Bootcamps Routes
 // GET for fetching all bootcamps, POST for creating a new bootcamp
 router.route("/").get(getBootcamps).post(createBootcamp);
+router.route("/radius/:zipcode/:distance").get(getBootcampsWithinRadius);
 
 // Individual Bootcamp Routes
 // GET for fetching, PUT for updating, DELETE for deleting a bootcamp by ID
