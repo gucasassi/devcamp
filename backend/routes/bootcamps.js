@@ -13,11 +13,15 @@ const {
 const router = express.Router();
 
 // Auth middleware
-const { protect } = require("../middlewares/auth");
+const { protect, authorize } = require("../middlewares/auth");
 
 // Bootcamps Routes
 // GET for fetching all bootcamps, POST for creating a new bootcamp
-router.route("/").get(getBootcamps).post(protect, createBootcamp);
+router
+  .route("/")
+  .get(getBootcamps)
+  .post(protect, authorize("admin", "publisher"), createBootcamp);
+
 router.route("/radius/:zipcode/:distance").get(getBootcampsWithinRadius);
 
 // Individual Bootcamp Routes
@@ -25,8 +29,8 @@ router.route("/radius/:zipcode/:distance").get(getBootcampsWithinRadius);
 router
   .route("/:id")
   .get(getBootcamp)
-  .put(protect, updateBootcamp)
-  .delete(protect, deleteBootcamp);
+  .put(protect, authorize("admin", "publisher"), updateBootcamp)
+  .delete(protect, authorize("admin", "publisher"), deleteBootcamp);
 
 // Exporting the router
 module.exports = router;
