@@ -44,7 +44,26 @@ exports.login = asyncHandler(async (req, res, next) => {
   }
 
   // Create token
+  sendTokenResponse(res, user);
+});
+
+// Get token from model, create cookie and send response
+const sendTokenResponse = (res, user) => {
   const token = user.getSignedJwtToken();
 
-  res.status(200).json({ success: true, token });
-});
+  const options = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true,
+  };
+
+  if (process.env.NODE_ENV === "production") {
+    options.secure = true;
+  }
+
+  res
+    .status(200)
+    .cookie("token", token, options)
+    .json({ success: true, token });
+};

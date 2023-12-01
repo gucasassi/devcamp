@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const colors = require("colors");
 const express = require("express");
+const cookieParser = require("cookie-parser");
 const errorHandler = require("./middlewares/error");
 const connectMongoDB = require("./configs/mongodb");
 
@@ -17,6 +18,9 @@ const app = express();
 
 // Body Parser
 app.use(express.json());
+
+// Cookie Parser
+app.use(cookieParser());
 
 // Morgan logger
 app.use(morgan("dev"));
