@@ -16,8 +16,6 @@ exports.getBootcamps = asyncHandler(async (req, res, next) => {
   // Loop over removeFields and delete them from reqQuery
   removeFields.forEach((param) => delete reqQuery[param]);
 
-  console.log(reqQuery);
-
   // Convert query parameters to a string and format them for MongoDB querying
   let queryStr = JSON.stringify(reqQuery).replace(
     /\b(gt|gte|lt|lte|in)\b/g,
@@ -52,7 +50,7 @@ exports.getBootcamps = asyncHandler(async (req, res, next) => {
   query = query.skip(startIndex).limit(limit);
 
   // Executing query
-  const bootcamps = await query;
+  const bootcamps = await query.populate("courses");
 
   // Pagination result
   const pagination = {};
@@ -63,7 +61,7 @@ exports.getBootcamps = asyncHandler(async (req, res, next) => {
       limit,
     };
   }
-  console.log(startIndex);
+
   if (startIndex > 0) {
     pagination.prev = {
       page: page - 1,
