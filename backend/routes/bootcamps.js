@@ -9,6 +9,9 @@ const {
   getBootcampsWithinRadius,
 } = require("../controllers/bootcamps");
 
+// Include other resource routers
+const courseRouter = require("./courses");
+
 // Creating a router
 const router = express.Router();
 
@@ -22,8 +25,6 @@ router
   .get(getBootcamps)
   .post(protect, authorize("admin", "publisher"), createBootcamp);
 
-router.route("/radius/:zipcode/:distance").get(getBootcampsWithinRadius);
-
 // Individual Bootcamp Routes
 // GET for fetching, PUT for updating, DELETE for deleting a bootcamp by ID
 router
@@ -31,6 +32,13 @@ router
   .get(getBootcamp)
   .put(protect, authorize("admin", "publisher"), updateBootcamp)
   .delete(protect, authorize("admin", "publisher"), deleteBootcamp);
+
+// Re-route into other resource routers
+router.use("/:bootcampId/courses", courseRouter);
+
+// Bootcamps Routes
+// GET for fetching all bootcamps within radius
+router.route("/radius/:zipcode/:distance").get(getBootcampsWithinRadius);
 
 // Exporting the router
 module.exports = router;

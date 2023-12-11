@@ -26,14 +26,16 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 
 // Routes
-const health = require("./routes/health");
 const auth = require("./routes/auth");
+const health = require("./routes/health");
+const courses = require("./routes/courses");
 const bootcamps = require("./routes/bootcamps");
 
 // Add Routers
-app.use("/api/v1/health", health);
 app.use("/api/v1/auth", auth);
+app.use("/api/v1/health", health);
 app.use("/api/v1/bootcamps", bootcamps);
+app.use("/api/v1/courses", courses);
 
 // Error handler
 app.use(errorHandler);
