@@ -1,4 +1,5 @@
 // Importing required modules
+const path = require("path");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const colors = require("colors");
@@ -28,6 +29,9 @@ app.use(morgan("dev"));
 
 // File uploading
 app.use(fileupload());
+
+// Set public as static folder
+app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
 const auth = require("./routes/auth");
