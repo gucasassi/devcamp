@@ -5,6 +5,7 @@ const {
   getCourse,
   createCourse,
   updateCourse,
+  deleteCourse,
 } = require("../controllers/courses");
 
 // Create a router
@@ -16,7 +17,7 @@ router.route("/").get(getCourses).post(createCourse);
 
 // Individual routes
 // GET for fetching, PUT for updating a course by ID
-router.route("/:id").get(getCourse).put(updateCourse);
+router.route("/:id").get(getCourse).put(updateCourse).delete(deleteCourse);
 
 // Export router
 module.exports = router;
