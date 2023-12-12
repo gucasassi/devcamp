@@ -10,6 +10,9 @@ const {
   uploadBootcampPhoto,
 } = require("../controllers/bootcamps");
 
+const Bootcamp = require("../models/Bootcamp");
+const advancedResults = require("../middlewares/advancedResults");
+
 // Include other resource routers
 const courseRouter = require("./courses");
 
@@ -23,7 +26,7 @@ const { protect, authorize } = require("../middlewares/auth");
 // GET for fetching all bootcamps, POST for creating a new bootcamp
 router
   .route("/")
-  .get(getBootcamps)
+  .get(advancedResults(Bootcamp, "courses"), getBootcamps)
   .post(protect, authorize("admin", "publisher"), createBootcamp);
 
 // Individual Bootcamp Routes
