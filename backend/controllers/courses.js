@@ -66,3 +66,24 @@ exports.createCourse = asyncHandler(async (req, res, next) => {
 
   res.status(201).json({ success: true, data: course });
 });
+
+// @desc        Update course
+// @route       PUT /api/v1/courses/:id
+// @access      Private
+exports.updateCourse = asyncHandler(async (req, res, next) => {
+  // Check course exist
+  let course = await Course.findById(req.params.id);
+
+  if (!course) {
+    return next(
+      new ErrorResponse(`Course with id ${req.params.id} does not exist`, 404)
+    );
+  }
+
+  course = await Course.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  res.status(200).json({ success: true, data: course });
+});
