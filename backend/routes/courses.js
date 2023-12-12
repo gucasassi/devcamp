@@ -1,13 +1,17 @@
 // Imports
 const express = require("express");
-const { getCourses, getCourse } = require("../controllers/courses");
+const {
+  getCourses,
+  getCourse,
+  createCourse,
+} = require("../controllers/courses");
 
 // Create a router
 const router = express.Router({ mergeParams: true });
 
 // Root routes
 // GET for fetching all courses
-router.route("/").get(getCourses);
+router.route("/").get(getCourses).post(createCourse);
 
 // Individual routes
 // GET for fetching a course by ID
