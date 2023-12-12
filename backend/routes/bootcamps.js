@@ -38,7 +38,9 @@ router
   .delete(protect, authorize("admin", "publisher"), deleteBootcamp);
 
 // PUT for upload bootcamp photo
-router.route("/:id/photo").put(uploadBootcampPhoto);
+router
+  .route("/:id/photo")
+  .put(protect, authorize("admin", "publisher"), uploadBootcampPhoto);
 
 // Re-route into other resource routers
 router.use("/:bootcampId/courses", courseRouter);
