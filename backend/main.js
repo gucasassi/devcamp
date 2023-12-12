@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const colors = require("colors");
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const fileupload = require("express-fileupload");
 const errorHandler = require("./middlewares/error");
 const connectMongoDB = require("./configs/mongodb");
 
@@ -25,13 +26,16 @@ app.use(cookieParser());
 // Morgan logger
 app.use(morgan("dev"));
 
+// File uploading
+app.use(fileupload());
+
 // Routes
 const auth = require("./routes/auth");
 const health = require("./routes/health");
 const courses = require("./routes/courses");
 const bootcamps = require("./routes/bootcamps");
 
-// Add Routers
+// Mount routers
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/health", health);
 app.use("/api/v1/bootcamps", bootcamps);
