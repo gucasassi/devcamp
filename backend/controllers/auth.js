@@ -1,6 +1,7 @@
 // Imports
 const asyncHandler = require("../middlewares/async");
 const ErrorResponse = require("../utils/errorResponse");
+const sendEmail = require("../utils/sendEmail");
 
 // Models
 const User = require("../models/User");
@@ -47,6 +48,62 @@ exports.login = asyncHandler(async (req, res, next) => {
   sendTokenResponse(res, user);
 });
 
+// @desc    Get current logged user
+// @route   POST /api/v1/auth/me
+// @access  Private
+exports.getMe = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user);
+  res.status(200).json({ success: true, data: user });
+});
+
+// @desc    Forgot password
+// @route   POST /api/v1/auth/forgot-password
+// @access  Private
+exports.forgotPassword = asyncHandler(async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+
+  // Check user
+  if (!user) {
+    return next(
+      new ErrorResponse(`User with ${req.body.email} email does not exist`, 404)
+    );
+  }
+
+  // Get reset token
+  const resetToken = user.getResetPasswordToken();
+
+  // Save user
+  await user.save({ validateBeforSafe: false });
+
+  // Create reset url
+  const resetUrl = `${req.protocol}://${req.get(
+    "host"
+  )}/api/v1/reset-password/${resetToken}`;
+
+  // Define email message
+  const message = `You are receiving this email because you (or someone else) has 
+  requested the reset of a password. Please make a PUT request to: \n\n ${resetUrl}`;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: "Password reset token",
+      message,
+    });
+
+    res.status(200).json({ success: true, data: "Email sent" });
+  } catch (err) {
+    console.error(err);
+
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save({ validateBeforSafe: false });
+
+    return next(new ErrorResponse("Email can not be send", 500));
+  }
+});
+
 // Get token from model, create cookie and send response
 const sendTokenResponse = (res, user) => {
   const token = user.getSignedJwtToken();
@@ -67,11 +124,3 @@ const sendTokenResponse = (res, user) => {
     .cookie("token", token, options)
     .json({ success: true, token });
 };
-
-// @desc    Get current logged user
-// @route   POST /api/v1/auth/me
-// @access  Private
-exports.getMe = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user);
-  res.status(200).json({ success: true, data: user });
-});
