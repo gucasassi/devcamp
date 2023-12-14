@@ -1,15 +1,15 @@
 // Imports
 const express = require("express");
-const { getMe } = require("../controllers/users");
+const { getMe, updateDetails } = require("../controllers/users");
 
 // Auth middleware
-const { protect } = require("../middlewares/auth");
+const { protect, authorize } = require("../middlewares/auth");
 
 // Creating router
 const router = express.Router();
 
 // Mapping routes
-router.route("/").get().put().delete();
+router.route("/").put(protect, updateDetails);
 router.route("/me").get(protect, getMe);
 
 // Export router;
