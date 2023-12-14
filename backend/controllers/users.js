@@ -54,14 +54,6 @@ exports.deleteUser = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: {} });
 });
 
-// @desc    Get current logged user
-// @route   GET /api/v1/users/me
-// @access  Private
-exports.getMe = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user);
-  res.status(200).json({ success: true, data: user });
-});
-
 // @desc    Update user details
 // @route   PUT /api/v1/users/me
 // @access  Private

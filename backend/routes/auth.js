@@ -6,6 +6,7 @@ const {
   forgotPassword,
   resetPassword,
   updatePassword,
+  getMe,
 } = require("../controllers/auth");
 
 // Creating router
@@ -15,6 +16,7 @@ const router = express.Router();
 const { protect } = require("../middlewares/auth");
 
 // Auth routes
+router.route("/me").get(protect, getMe);
 router.route("/login").post(login);
 router.route("/register").post(register);
 router.route("/forgot-password").post(forgotPassword);

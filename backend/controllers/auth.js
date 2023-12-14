@@ -7,6 +7,14 @@ const sendEmail = require("../utils/sendEmail");
 // Models
 const User = require("../models/User");
 
+// @desc    Get current logged user
+// @route   GET /api/v1/auth/me
+// @access  Private
+exports.getMe = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user);
+  res.status(200).json({ success: true, data: user });
+});
+
 // @desc    Register new user
 // @route   POST /api/v1/auth/register
 // @access  Public
