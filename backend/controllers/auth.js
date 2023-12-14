@@ -130,6 +130,28 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   sendTokenResponse(res, user);
 });
 
+// @desc    Update users password
+// @route   GET /api/v1/users/password
+// @access  Private
+exports.updatePassword = asyncHandler(async (req, res, next) => {
+  // Get user with password
+  const user = await User.findById(req.user).select("+password");
+
+  // Check current password
+  if (!(await user.matchPassword(req.body.currentPassword))) {
+    return next(new ErrorResponse(`Password is not correct`, 400));
+  }
+
+  // Set new password to the user
+  user.password = req.body.newPassword;
+
+  // Update user
+  await user.save();
+
+  // Create token
+  sendTokenResponse(res, user);
+});
+
 // Get token from model, create cookie and send response
 const sendTokenResponse = (res, user) => {
   const token = user.getSignedJwtToken();
