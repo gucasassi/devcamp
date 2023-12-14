@@ -14,7 +14,8 @@ const Bootcamp = require("../models/Bootcamp");
 const advancedResults = require("../middlewares/advancedResults");
 
 // Include other resource routers
-const courseRouter = require("./courses");
+const coursesRouter = require("./courses");
+const reviewsRouter = require("./reviews");
 
 // Creating a router
 const router = express.Router();
@@ -43,7 +44,8 @@ router
   .put(protect, authorize("admin", "publisher"), uploadBootcampPhoto);
 
 // Re-route into other resource routers
-router.use("/:bootcampId/courses", courseRouter);
+router.use("/:bootcampId/courses", coursesRouter);
+router.use("/:bootcampId/reviews", reviewsRouter);
 
 // Bootcamps Routes
 // GET for fetching all bootcamps within radius
