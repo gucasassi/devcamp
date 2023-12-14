@@ -49,14 +49,6 @@ exports.login = asyncHandler(async (req, res, next) => {
   sendTokenResponse(res, user);
 });
 
-// @desc    Get current logged user
-// @route   POST /api/v1/auth/me
-// @access  Private
-exports.getMe = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user);
-  res.status(200).json({ success: true, data: user });
-});
-
 // @desc    Forgot password
 // @route   POST /api/v1/auth/forgot-password
 // @access  Public
