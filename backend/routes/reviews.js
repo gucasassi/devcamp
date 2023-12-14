@@ -1,6 +1,6 @@
 // Import
 const express = require("express");
-const { getReviews } = require("../controllers/reviews");
+const { getReviews, getReview } = require("../controllers/reviews");
 const advancedResults = require("../middlewares/advancedResults");
 
 // Models
@@ -17,6 +17,8 @@ router.route("/").get(
   }),
   getReviews
 );
+
+router.route("/:id").get(getReview);
 
 // Export
 module.exports = router;
