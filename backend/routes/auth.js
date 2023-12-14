@@ -5,6 +5,7 @@ const {
   login,
   getMe,
   forgotPassword,
+  resetPassword,
 } = require("../controllers/auth");
 
 // Creating router
@@ -18,6 +19,7 @@ router.route("/login").post(login);
 router.route("/register").post(register);
 router.route("/me").get(protect, getMe);
 router.route("/forgot-password").post(forgotPassword);
+router.route("/reset-password/:resettoken").put(resetPassword);
 
 // Exporting router
 module.exports = router;
