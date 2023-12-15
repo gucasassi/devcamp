@@ -3,6 +3,7 @@ const path = require("path");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const colors = require("colors");
+const helmet = require("helmet");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const fileupload = require("express-fileupload");
@@ -33,6 +34,9 @@ app.use(fileupload());
 
 // Sanitize data
 app.use(mongoSanitize());
+
+// Set security headers
+app.use(helmet());
 
 // Set public as static folder
 app.use(express.static(path.join(__dirname, "public")));
