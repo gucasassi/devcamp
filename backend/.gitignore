@@ -49,3 +49,6 @@ Thumbs.db
 
 # Env files
 .env
+
+# public folder
+public
