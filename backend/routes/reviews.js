@@ -1,6 +1,11 @@
 // Import
 const express = require("express");
-const { getReviews, getReview, addReview } = require("../controllers/reviews");
+const {
+  getReviews,
+  getReview,
+  addReview,
+  updateReview,
+} = require("../controllers/reviews");
 const advancedResults = require("../middlewares/advancedResults");
 
 // Models
@@ -10,7 +15,7 @@ const Review = require("../models/Review");
 const { protect, authorize } = require("../middlewares/auth");
 
 // Create Router
-const router = express.Router({ mergeParams: true });
+const router = express.Router();
 
 // Mapping routes
 router
@@ -24,7 +29,7 @@ router
   )
   .post(protect, authorize("user", "admin"), addReview);
 
-router.route("/:id").get(getReview);
+router.route("/:id").get(getReview).put(protect, updateReview);
 
 // Export
 module.exports = router;
