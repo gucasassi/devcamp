@@ -7,6 +7,7 @@ const helmet = require("helmet");
 const xss = require("xss-clean");
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const rateLimit = require("express-rate-limit");
 const fileupload = require("express-fileupload");
 const errorHandler = require("./middlewares/error");
 const connectMongoDB = require("./configs/mongodb");
@@ -41,6 +42,14 @@ app.use(helmet());
 
 // XSS Protection
 app.use(xss());
+
+// Rate Limits
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 100,
+});
+
+app.use(limiter);
 
 // Set public as static folder
 app.use(express.static(path.join(__dirname, "public")));
