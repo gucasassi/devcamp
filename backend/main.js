@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const colors = require("colors");
 const helmet = require("helmet");
+const xss = require("xss-clean");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const fileupload = require("express-fileupload");
@@ -37,6 +38,9 @@ app.use(mongoSanitize());
 
 // Set security headers
 app.use(helmet());
+
+// XSS Protection
+app.use(xss());
 
 // Set public as static folder
 app.use(express.static(path.join(__dirname, "public")));
