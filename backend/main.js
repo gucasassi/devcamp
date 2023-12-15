@@ -12,6 +12,7 @@ const fileupload = require("express-fileupload");
 const errorHandler = require("./middlewares/error");
 const connectMongoDB = require("./configs/mongodb");
 const mongoSanitize = require("express-mongo-sanitize");
+const hpp = require("hpp");
 
 // Load environment variables
 dotenv.config(".env");
@@ -50,6 +51,9 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
+
+// Protect HPP attacks
+app.use(hpp());
 
 // Set public as static folder
 app.use(express.static(path.join(__dirname, "public")));
