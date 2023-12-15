@@ -7,6 +7,7 @@ const ErrorResponse = require("../utils/errorResponse");
 // Protect routes
 exports.protect = asyncHandler(async (req, res, next) => {
   let token;
+  let decoded;
 
   if (
     req?.headers?.authorization &&
@@ -22,11 +23,23 @@ exports.protect = asyncHandler(async (req, res, next) => {
 
   try {
     // Validate token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    console.error(err);
+    next(new ErrorResponse("Internal server error", 500));
+  }
 
-    req.user = await User.findById(decoded.id);
-    next();
-  } catch (error) {}
+  // Validate user exist
+  const user = await User.findById(decoded.id);
+
+  if (!user) {
+    console.error(`User ${decoded.id} does not exist`);
+    return next(new ErrorResponse("Not authorize to access this route", 401));
+  } else {
+    req.user = user;
+  }
+
+  next();
 });
 
 // Grant access to specific roles
