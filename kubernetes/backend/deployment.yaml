@@ -35,3 +35,81 @@ spec:
                 secretKeyRef:
                   name: devcamp-back-secret
                   key: mongodb_uri
+
+            - name: GEOCODER_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: devcamp-back-secret
+                  key: geocoder_api_key
+
+            - name: GEOCODER_PROVIDER
+              valueFrom:
+                secretKeyRef:
+                  name: devcamp-back-secret
+                  key: geocoder_provider
+
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: devcamp-back-secret
+                  key: jwt_secret
+
+            - name: JWT_EXPIRE
+              valueFrom:
+                configMapKeyRef:
+                  name: devcamp-back-config
+                  key: jwt_expire
+
+            - name: JWT_COOKIE_EXPIRE
+              valueFrom:
+                configMapKeyRef:
+                  name: devcamp-back-config
+                  key: jwt_cookie_expire
+
+            - name: MAX_FILE_UPLOAD
+              valueFrom:
+                configMapKeyRef:
+                  name: devcamp-back-config
+                  key: max_file_upload
+
+            - name: FILE_UPLOAD_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: devcamp-back-config
+                  key: file_upload_path
+
+            - name: SMTP_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: devcamp-back-secret
+                  key: smtp_host
+
+            - name: SMTP_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: devcamp-back-secret
+                  key: smtp_port
+
+            - name: SMTP_USER
+              valueFrom:
+                secretKeyRef:
+                  name: devcamp-back-secret
+                  key: smtp_user
+
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: devcamp-back-secret
+                  key: smtp_password
+
+            - name: FROM_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: devcamp-back-config
+                  key: from_name
+
+            - name: FROM_EMAIL
+              valueFrom:
+                configMapKeyRef:
+                  name: devcamp-back-config
+                  key: from_email

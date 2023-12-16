@@ -5,3 +5,9 @@ metadata:
   namespace: devcamp
 data:
   app_port: "3000"
+  jwt_expire: "2h"
+  jwt_cookie_expire: "2"
+  max_file_upload: "1000000"
+  file_upload_path: "./public/uploads"
+  from_name: "DevCamp"
+  from_email: "noreply@gucasassi.com"
