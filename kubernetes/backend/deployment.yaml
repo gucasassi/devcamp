@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: devcamp-back
-          image: gucasassi/devcamp-back:1.2.0
+          image: gucasassi/devcamp-back:1.4.0
           imagePullPolicy: Always
           resources:
             limits:
