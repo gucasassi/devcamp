@@ -3,7 +3,7 @@
 #############################           STAGE 1: INSTALL DEPENDENCIES            #####################
 ######################################################################################################
 
-FROM node:24.10.0-alpine AS deps
+FROM node:25.0.0-alpine AS deps
 
 # Set working directory.
 WORKDIR /app
@@ -19,7 +19,7 @@ RUN npm install -g pnpm && pnpm install --frozen-lockfile
 #############################                  STAGE 2: RUN APP                 ######################
 ######################################################################################################
 
-FROM node:24.10.0-alpine AS production
+FROM node:25.0.0-alpine AS production
 
 # Set working directory
 WORKDIR /app
