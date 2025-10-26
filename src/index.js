@@ -11,9 +11,8 @@ const app = express();
 // Define the port to listen on (from environment or default to 3000).
 const PORT = process.env.APP_PORT || 3000;
 
-// Define a route handler for GET requests to the root URL.
-app.get('/', (req, res) => {
-  // Send a simple response
+// Define a route handler for GET requests to the /health URL.
+app.get('/health', (req, res) => {
   res.status(200).send({ success: true });
 });
 

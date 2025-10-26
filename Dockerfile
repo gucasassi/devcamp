@@ -43,7 +43,7 @@ EXPOSE 3000
 
 # Add a health check to ensure the application is running.
 # NOTE: We use wget instead of curl to keep the image size smaller. 
-HEALTHCHECK --interval=20s --timeout=2s --start-period=1s --retries=3 CMD wget -q --spider http://127.0.0.1:3000 || exit 1
+HEALTHCHECK --interval=20s --timeout=2s --start-period=1s --retries=3 CMD wget -q --spider http://127.0.0.1:3000/health || exit 1
 
 # Start the application directly with node for production.
 CMD ["node", "src/index.js"]
