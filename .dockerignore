@@ -1,0 +1,25 @@
+
+# Ignore dependencies
+node_modules
+
+# Ignore git and VCS files
+.git
+.gitignore
+
+# Ignore Docker and config files not needed in image
+Dockerfile
+.eslintignore
+.eslintrc.json
+.prettierignore
+.prettierrc
+
+# Ignore environment variables
+.env
+
+# Ignore coverage and build output
+coverage
+build
+
+# Ignore IDE/editor folders
+.vscode
+.idea
