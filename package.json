@@ -1,0 +1,35 @@
+{
+  "name": "devcamp",
+  "version": "0.0.1",
+  "description": "Devcamp API",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write \"**/*.{js,md}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gucasassi/devcamp.git"
+  },
+  "keywords": [],
+  "author": "Guillem Casas",
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/gucasassi/devcamp/issues"
+  },
+  "homepage": "https://github.com/gucasassi/devcamp#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.38.0",
+    "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.2"
+  }
+}
