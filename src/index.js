@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
+import morgan from 'morgan';
 import express from 'express';
-// Import routes.
+// Local imports.
 import health from './routes/health.js';
 import bootcamps from './routes/bootcamps.js';
 
@@ -9,6 +10,11 @@ dotenv.config();
 
 // Create an Express application.
 const app = express();
+
+// Use morgan for logging HTTP requests in development mode.
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 
 // Mount all routes.
 app.use('/health', health);
