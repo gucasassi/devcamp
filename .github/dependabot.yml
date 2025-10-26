@@ -1,8 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: 'npm'
-    directories:
-      - '/'
+    directories: ['/']
     groups:
       minor-and-patch:
         update-types: ['minor', 'patch']
@@ -16,8 +15,7 @@ updates:
 
   # Dockerfiles.
   - package-ecosystem: 'docker'
-    directories:
-      - '/**'
+    directories: ['/']
     labels: ['deps']
     schedule:
       interval: 'weekly'
