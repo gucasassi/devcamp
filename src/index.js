@@ -14,7 +14,7 @@ const PORT = process.env.APP_PORT || 3000;
 // Define a route handler for GET requests to the root URL.
 app.get('/', (req, res) => {
   // Send a simple response
-  res.send('Hi there!');
+  res.status(200).send({ success: true });
 });
 
 // Start the server and listen on the specified port.
