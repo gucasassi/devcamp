@@ -1,32 +1,23 @@
 import express from 'express';
+// Import controller functions for bootcamp routes.
+import { getBootcamps, getBootcampById, createBootcamp, updateBootcamp, deleteBootcamp } from '../controllers/bootcamps.js';
 
-// Create a router instance.
+/**
+ * Create a new Express router for bootcamp routes.
+ */
 const router = express.Router();
 
-// Define a route handler for get all bootcamps.
-router.get('/', (req, res) => {
-  res.status(200).send({ success: true, message: 'retrieve all bootcamps' });
-});
+/**
+ * Define route handlers for getting all bootcamps and creating a new bootcamp.
+ */
+router.route('/').get(getBootcamps).post(createBootcamp);
 
-// Define a route handler for get single bootcamp.
-router.get('/:id', (req, res) => {
-  res.status(200).send({ success: true, message: `retrieve bootcamp ${req.params.id}` });
-});
+/**
+ * Define route handlers for getting, updating, and deleting a single bootcamp by ID.
+ */
+router.route('/:id').get(getBootcampById).put(updateBootcamp).delete(deleteBootcamp);
 
-// Define a route handler for create new bootcamp.
-router.post('/', (req, res) => {
-  res.status(201).send({ success: true, message: 'create new bootcamp' });
-});
-
-// Define a route handler for update bootcamp.
-router.put('/:id', (req, res) => {
-  res.status(200).send({ success: true, message: `update bootcamp ${req.params.id}` });
-});
-
-// Define a route handler for delete bootcamp.
-router.delete('/:id', (req, res) => {
-  res.status(200).send({ success: true, message: `delete bootcamp ${req.params.id}` });
-});
-
-// Export the router to be used in index.js.
+/**
+ * Export the router as the default export of this module.
+ */
 export default router;
