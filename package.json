@@ -4,6 +4,7 @@
   "description": "Devcamp API",
   "main": "index.js",
   "scripts": {
+    "clean": "rimraf node_modules",
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
     "lint": "eslint . --max-warnings 0",
@@ -30,6 +31,11 @@
     "eslint": "^9.38.0",
     "eslint-config-prettier": "^10.1.8",
     "nodemon": "^3.1.10",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "rimraf": "6.0.1"
+  },
+  "packageManager": "pnpm@10.19.0",
+  "engines": {
+    "node": "24.10.0"
   }
 }
