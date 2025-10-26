@@ -1,6 +1,6 @@
 {
   "name": "devcamp",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Devcamp API",
   "main": "index.js",
   "scripts": {
