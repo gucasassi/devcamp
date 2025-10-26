@@ -1,0 +1,36 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directories:
+      - '/'
+    groups:
+      minor-and-patch:
+        update-types: ['minor', 'patch']
+    open-pull-requests-limit: 10
+    labels: ['deps']
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '06:00'
+      timezone: 'Europe/Madrid'
+
+  # Dockerfiles.
+  - package-ecosystem: 'docker'
+    directories:
+      - '/**'
+    labels: ['deps']
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '06:00'
+      timezone: 'Europe/Madrid'
+
+  # GitHub Actions.
+  - package-ecosystem: 'github-actions'
+    directories: ['/']
+    labels: ['deps']
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '06:00'
+      timezone: 'Europe/Madrid'
