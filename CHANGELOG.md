@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/gucasassi/devcamp/compare/v1.3.0...v1.4.0) (2025-10-27)
+
+
+### Features
+
+* **bootcamp:** implements update bootcamp ([7abb95b](https://github.com/gucasassi/devcamp/commit/7abb95b864768d4d89ff13c51b19b3859109f945))
+
 # [1.3.0](https://github.com/gucasassi/devcamp/compare/v1.2.0...v1.3.0) (2025-10-27)
 
 
