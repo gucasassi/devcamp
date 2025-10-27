@@ -1,0 +1,61 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "node",
+  "tag-separator": "@",
+  "include-component-in-tag": true,
+  "packages": {
+    ".": {
+      "package-name": "devcamp"
+    }
+  },
+  "changelog-sections": [
+    {
+      "type": "feat",
+      "section": "✨ Features"
+    },
+    {
+      "type": "fix",
+      "section": "🐛 Bugs"
+    },
+    {
+      "type": "chore",
+      "hidden": true,
+      "section": "🧹 Chore"
+    },
+    {
+      "type": "docs",
+      "hidden": true,
+      "section": "📚 Documentation"
+    },
+    {
+      "type": "perf",
+      "section": "🚀 Performance"
+    },
+    {
+      "type": "build",
+      "section": "🛠️ Build"
+    },
+    {
+      "type": "ci",
+      "hidden": true,
+      "section": "🚦 CI"
+    },
+    {
+      "type": "refactor",
+      "section": "🔄 Refactors"
+    },
+    {
+      "type": "revert",
+      "section": "🔙 Reverts"
+    },
+    {
+      "type": "style",
+      "section": "🎨 Styling"
+    },
+    {
+      "type": "test",
+      "hidden": true,
+      "section": "🧪 Tests"
+    }
+  ]
+}
