@@ -1,3 +1,11 @@
+# [1.3.0](https://github.com/gucasassi/devcamp/compare/v1.2.0...v1.3.0) (2025-10-27)
+
+
+### Features
+
+* **bootcamp:** implements get all bootcamps ([3d9919a](https://github.com/gucasassi/devcamp/commit/3d9919a5bf7b7cb18b36feb567e92ec6517ecd71))
+* **bootcamp:** implements get bootcamp by id ([38b7289](https://github.com/gucasassi/devcamp/commit/38b72894c3c459634c4393d45b528a78bbe0b51e))
+
 # [1.2.0](https://github.com/gucasassi/devcamp/compare/v1.1.0...v1.2.0) (2025-10-27)
 
 
