@@ -59,8 +59,22 @@ const createBootcamp = async (req, res) => {
  * @route  - PUT /api/v1/bootcamps/:id
  * @access - Private
  */
-const updateBootcamp = (req, res) => {
-  res.status(200).send({ success: true, message: `update bootcamp ${req.params.id}` });
+const updateBootcamp = async (req, res) => {
+  // Update bootcamp by ID with new data.
+  const bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  }).catch((err) => {
+    return res.status(400).send({ success: false, error: err.message });
+  });
+
+  // If bootcamp not found, return 404.
+  if (!bootcamp) {
+    return res.status(404).send({ success: false, error: 'Bootcamp does not exist' });
+  }
+
+  // Return the updated bootcamp.
+  res.status(200).send({ success: true, data: bootcamp });
 };
 
 /**
