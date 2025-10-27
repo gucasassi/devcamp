@@ -21,8 +21,19 @@ const getBootcamps = async (req, res) => {
  * @route  - GET /api/v1/bootcamps/:id
  * @access - Public
  */
-const getBootcampById = (req, res) => {
-  res.status(200).send({ success: true, message: `retrieve bootcamp ${req.params.id}` });
+const getBootcampById = async (req, res) => {
+  // Find bootcamp by ID.
+  const bootcamp = await Bootcamp.findById(req.params.id).catch((err) => {
+    return res.status(400).send({ success: false, error: err.message });
+  });
+
+  // If bootcamp not found, return 404.
+  if (!bootcamp) {
+    return res.status(404).send({ success: false, error: 'Bootcamp not found' });
+  }
+
+  // Return the found bootcamp.
+  res.status(200).send({ success: true, data: bootcamp });
 };
 
 /**
