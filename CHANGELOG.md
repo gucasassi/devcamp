@@ -1,3 +1,12 @@
+# [1.2.0](https://github.com/gucasassi/devcamp/compare/v1.1.0...v1.2.0) (2025-10-27)
+
+
+### Features
+
+* **bootcamp:** create bootcamp model ([6186115](https://github.com/gucasassi/devcamp/commit/61861155e120125002fbd6ddac0e584813828111))
+* **bootcamp:** implements create new bootcamp feature ([8b21777](https://github.com/gucasassi/devcamp/commit/8b2177784543b544d11ef53f4e714f6dfa558b57))
+* **mongodb:** install moongose and configure db connection ([6190600](https://github.com/gucasassi/devcamp/commit/6190600d9a28b04eff77d05d1d22036ba3bb594e))
+
 # [1.1.0](https://github.com/gucasassi/devcamp/compare/v1.0.0...v1.1.0) (2025-10-26)
 
 
