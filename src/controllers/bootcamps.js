@@ -1,3 +1,6 @@
+import slugify from 'slugify';
+import Bootcamp from '../models/Bootcamp.js';
+
 /**
  * @desc   - Get all bootcamps controller.
  * @route  - GET /api/v1/bootcamps
@@ -21,8 +24,17 @@ const getBootcampById = (req, res) => {
  * @route  - POST /api/v1/bootcamps
  * @access - Private
  */
-const createBootcamp = (req, res) => {
-  res.status(201).send({ success: true, message: 'create new bootcamp' });
+const createBootcamp = async (req, res) => {
+  // Generate slug from bootcamp name.
+  const slug = slugify(req.body.name, { lower: true });
+
+  // Create new bootcamp in the database.
+  const bootcamp = await Bootcamp.create({ ...req.body, slug }).catch((err) => {
+    return res.status(400).send({ success: false, error: err.message });
+  });
+
+  // Return the created bootcamp.
+  res.status(201).send({ success: true, data: bootcamp });
 };
 
 /**

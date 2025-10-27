@@ -17,6 +17,9 @@ connectDB();
 // Create an Express application.
 const app = express();
 
+// Body parser middleware to handle JSON requests.
+app.use(express.json());
+
 // Use morgan for logging HTTP requests in development mode.
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));

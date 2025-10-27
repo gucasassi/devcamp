@@ -13,7 +13,7 @@ const BootcampSchema = new mongoose.Schema({
   // URL-friendly identifier for the bootcamp.
   slug: {
     type: String,
-    required: [true, 'Please add a slug'],
+    required: false,
     unique: true,
     lowercase: true,
     trim: true,
@@ -53,11 +53,11 @@ const BootcampSchema = new mongoose.Schema({
     type: {
       type: String,
       enum: ['Point'],
-      required: true,
+      required: false,
     },
     coordinates: {
       type: [Number],
-      required: true,
+      required: false,
     },
   },
   // Additional address details.
@@ -71,7 +71,7 @@ const BootcampSchema = new mongoose.Schema({
   careers: {
     type: [String],
     required: true,
-    enum: ['Web Development', 'Mobile Development', 'UI/UX Design', 'Data Science', 'Business', 'Other'],
+    enum: ['Web Development', 'Mobile Development', 'UI/UX', 'Data Science', 'Business', 'Other'],
   },
   // Average rating for the bootcamp.
   averageRating: {
