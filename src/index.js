@@ -1,5 +1,7 @@
 import dotenv from 'dotenv';
 import morgan from 'morgan';
+// eslint-disable-next-line no-unused-vars
+import colors from 'colors';
 import express from 'express';
 // Local imports.
 import connectDB from './config/db.js';
@@ -29,12 +31,12 @@ const PORT = process.env.APP_PORT || 3000;
 
 // Start the server and listen on the specified port.
 const server = app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`.green.bold);
 });
 
 // Handle unhandled promise rejections.
 process.on('unhandledRejection', (err) => {
-  console.log(`Error: ${err.message}`);
+  console.log(`Error: ${err.message}`.red.bold);
   // Close server & exit process.
   server.close(() => process.exit(1));
 });
