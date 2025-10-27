@@ -1,0 +1,15 @@
+version: '3.8'
+
+# Define services for the application.
+services:
+  # MONGODB: NoSQL database service.
+  mongodb:
+    image: mongo:6-jammy
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb_data:/data/db
+
+# Define named volumes for data persistence.
+volumes:
+  mongodb_data:
