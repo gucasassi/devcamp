@@ -43,8 +43,16 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile --dev
 
+      # Step 2: Create GitHub Token
+      - name: Create GitHub Token
+        uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_SECRET }}
+
       # Step 5: Run semantic-release to publish and tag.
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v5
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub token for authentication.
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }} # Use generated token.
