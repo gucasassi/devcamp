@@ -2,6 +2,8 @@
 
 Starter project in Node.js and Express for web applications.
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=gucasassi_devcamp&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=gucasassi_devcamp)
+
 ## Features
 
 - Basic Express server
