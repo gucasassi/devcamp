@@ -1,50 +1,60 @@
+# Build and push Docker image to GitHub Container Registry.
+name: release
 
-# Release workflow for automated semantic versioning and publishing.
-name: Release
-
-# Trigger workflow on push to main branch.
+# This workflow runs when any of the following occur:
+# - A tag starting with "v" is created
 on:
   push:
-    branches:
-      - main
+    tags:
+      - v*
+  pull_request:
 
-# Set default permissions for all jobs.
-permissions:
-  contents: read
+# This creates an environment variable called `IMAGE_NAME ` with the value `ghtoken_product_demo`.
+env:
+  IMAGE_NAME: devcamp
 
+# Define jobs
 jobs:
-  release:
-    name: Release
-    runs-on: ubuntu-22.04 # Use ubuntu 22.04 runner.
+  # Build Docker image.
+  build-push:
+    runs-on: ubuntu-22.04
     permissions:
-      contents: write      # Allow pushing tags and releases.
-      issues: write        # Allow creating/updating issues.
-      pull-requests: write # Allow creating/updating PRs.
-      id-token: write      # Required for some GitHub actions.
+      packages: write
+      contents: read
+    
+    # Steps to build docker image.
     steps:
-      # Step 1: Checkout repository with full history.
+      # Step 1: Checkout repository.
       - name: Checkout
         uses: actions/checkout@v5
-        with:
-          fetch-depth: 0 # Fetch all history for semantic-release.
 
-      # Step 2: Setup pnpm package manager.
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      # Step 2: Build Docker image.
+      - name: Build image
+        run: docker build -t $IMAGE_NAME .
 
-      # Step 3: Setup Node.js environment.
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: "24.10.0" # Use project Node.js version
-          cache: 'pnpm'           # Cache pnpm dependencies
+      # Step 3: Log in to GitHub Container Registry.
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      # Step 4: Install all dependencies (including dev).
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile --dev
+      # Step 4: Push Docker image.
+      - name: Push image
+        run: |
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
 
-      # Step 5: Run semantic-release to publish and tag.
-      - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub token for authentication.
+          # This changes all uppercase characters to lowercase.
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+
+          # This strips the git ref prefix from the version.
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          
+          # This strips the "v" prefix from the tag name.
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          
+          # This uses the Docker `latest` tag convention.
+          [ "$VERSION" == "main" ] && VERSION=latest
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+
+          # Tag and push docker image
+          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:$VERSION
