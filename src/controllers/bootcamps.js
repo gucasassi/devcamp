@@ -6,8 +6,14 @@ import Bootcamp from '../models/Bootcamp.js';
  * @route  - GET /api/v1/bootcamps
  * @access - Public
  */
-const getBootcamps = (req, res) => {
-  res.status(200).send({ success: true, message: 'retrieve all bootcamps' });
+const getBootcamps = async (req, res) => {
+  // Retrieve all bootcamps from the database.
+  const bootcamps = await Bootcamp.find().catch((err) => {
+    return res.status(400).send({ success: false, error: err.message });
+  });
+
+  // Return the list of bootcamps.
+  res.status(200).send({ success: true, data: bootcamps });
 };
 
 /**
