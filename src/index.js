@@ -2,11 +2,15 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import express from 'express';
 // Local imports.
+import connectDB from './config/db.js';
 import health from './routes/health.js';
 import bootcamps from './routes/bootcamps.js';
 
 // Load environment variables from .env file.
 dotenv.config();
+
+// Connect to the database.
+connectDB();
 
 // Create an Express application.
 const app = express();
@@ -24,6 +28,13 @@ app.use('/api/v1/bootcamps', bootcamps);
 const PORT = process.env.APP_PORT || 3000;
 
 // Start the server and listen on the specified port.
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+// Handle unhandled promise rejections.
+process.on('unhandledRejection', (err) => {
+  console.log(`Error: ${err.message}`);
+  // Close server & exit process.
+  server.close(() => process.exit(1));
 });
