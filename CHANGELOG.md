@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/gucasassi/devcamp/compare/v1.0.0...v1.1.0) (2025-10-28)
+
+
+### ✨ Features
+
+* **bootcamp:** add total count to get bootcamps response payload ([16ef7de](https://github.com/gucasassi/devcamp/commit/16ef7de4d18e9acad5b07ac3b2e67b361866a253))
+* **bootcamp:** implement delete endpoint ([d601205](https://github.com/gucasassi/devcamp/commit/d601205dac1c5099fb94bd4d677727a1ade04152))
+
 ## [1.0.0](https://github.com/gucasassi/devcamp/compare/devcamp-v1.0.0...devcamp-v1.0.0) (2025-10-28)
 
 
