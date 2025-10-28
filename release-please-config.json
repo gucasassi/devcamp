@@ -5,7 +5,8 @@
   "pull-request-footer": "Generated automatically by release-please 🤖",
   "packages": {
     ".": {
-      "release-type": "node"
+      "release-type": "node",
+      "include-component-in-tag": false
     }
   },
   "changelog-sections": [
