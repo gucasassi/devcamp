@@ -1,8 +1,8 @@
-
 ######################################################################################################
 #############################           STAGE 1: INSTALL DEPENDENCIES            #####################
 ######################################################################################################
 
+# Use a Node.js image with Alpine for smaller size.
 FROM node:24.10.0-alpine AS deps
 
 # Set working directory.
@@ -14,12 +14,13 @@ COPY package.json pnpm-lock.yaml ./
 # Install pnpm globally and dependencies
 RUN npm install -g pnpm && pnpm install --frozen-lockfile
 
-
 ######################################################################################################
 #############################                  STAGE 2: RUN APP                 ######################
 ######################################################################################################
 
+# Use a minimal Node.js image for production and assign metadata for source repository.
 FROM node:24.10.0-alpine AS production
+LABEL org.opencontainers.image.source https://github.com/gucasassi/devcamp
 
 # Set working directory
 WORKDIR /app
