@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 # Set default permissions for all jobs.
 permissions:
@@ -15,9 +16,10 @@ permissions:
   issues: write
 
 jobs:
+  # Job 1: Create releases or prs using release-please-action.
   release:
     name: release
-    runs-on: ubuntu-22.04 # Use ubuntu 22.04 runner.
+    runs-on: ubuntu-22.04
 
     # Define outputs for the job.
     outputs:
@@ -38,7 +40,7 @@ jobs:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_SECRET }}
 
-      # Step 3: Run semantic-release to publish and tag.
+      # Step 3: Run release-please-action to create releases or prs.
       - name: Create Release
         id: release
         uses: googleapis/release-please-action@v4
@@ -54,11 +56,12 @@ jobs:
           echo "tag_name: ${{ steps.release.outputs.tag_name }}"
           echo "sha: ${{ steps.release.outputs.sha }}"
 
+  # Job 2: Build Docker image if release was created.
   build:
     name: build
     needs: release
     runs-on: ubuntu-22.04
-    if: needs.release.outputs.prs_created == 'true'
+    # if: needs.release.outputs.prs_created == 'true'
 
     steps:
       # Step 1: Checkout code.
