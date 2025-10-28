@@ -18,32 +18,13 @@ jobs:
   release:
     name: release
     runs-on: ubuntu-22.04 # Use ubuntu 22.04 runner.
-    permissions:
-      contents: write      # Allow pushing tags and releases.
-      issues: write        # Allow creating/updating issues.
-      pull-requests: write # Allow creating/updating PRs.
-      id-token: write      # Required for some GitHub actions.
+
     steps:
       # Step 1: Checkout repository with full history.
       - name: Checkout
         uses: actions/checkout@v5
         with:
           fetch-depth: 0 # Fetch all history for semantic-release.
-
-      # Step 2: Setup pnpm package manager.
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      # Step 3: Setup Node.js environment.
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: "24.10.0" # Use project Node.js version
-          cache: 'pnpm'           # Cache pnpm dependencies
-
-      # Step 4: Install all dependencies (including dev).
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile --dev
 
       # Step 2: Create GitHub Token
       - name: Create GitHub Token
@@ -53,7 +34,7 @@ jobs:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_SECRET }}
 
-      # Step 5: Run semantic-release to publish and tag.
+      # Step 3: Run semantic-release to publish and tag.
       - name: Create Release
         id: release
         uses: googleapis/release-please-action@v4
