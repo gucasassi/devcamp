@@ -23,7 +23,8 @@ jobs:
 
     # Define outputs for the job.
     outputs:
-      prs_created: ${{ steps.release.outputs.prs_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+      releases_created: ${{ steps.release.outputs.releases_created }}
 
     steps:
       # Step 1: Checkout repository with full history.
@@ -61,7 +62,7 @@ jobs:
     name: build
     needs: release
     runs-on: ubuntu-22.04
-    # if: needs.release.outputs.prs_created == 'true'
+    if: needs.release.outputs.releases_created == 'true'
 
     steps:
       # Step 1: Checkout code.
@@ -86,11 +87,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: "ghcr.io/${{ github.repository }}:latest"
-
-      # Step 4: Build and push Docker image.
-      - name: Debug
-        run: |
-          echo "repository: ${{ github.repository }}"
-          echo "repository_owner: ${{ github.repository_owner }}"
-          echo "sha: ${{ github.sha }}"
+          tags: "ghcr.io/${{ github.repository }}:${{ needs.release.outputs.tag_name }}"
