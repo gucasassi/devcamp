@@ -4,6 +4,7 @@
 
 # Use a Node.js image with Alpine for smaller size.
 FROM node:24.10.0-alpine AS deps
+LABEL org.opencontainers.image.source https://github.com/gucasassi/devcamp
 
 # Set working directory.
 WORKDIR /app
