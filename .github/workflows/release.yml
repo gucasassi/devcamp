@@ -81,6 +81,14 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       # Step 4: Build and push Docker image.
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: "${{ github.repository }}:latest"
+
+      # Step 4: Build and push Docker image.
       - name: Debug
         run: |
           echo "repository: ${{ github.repository }}"
