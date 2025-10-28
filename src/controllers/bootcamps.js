@@ -13,7 +13,7 @@ const getBootcamps = async (req, res) => {
   });
 
   // Return the list of bootcamps.
-  res.status(200).send({ success: true, data: bootcamps });
+  res.status(200).send({ success: true, count: bootcamps.length, data: bootcamps });
 };
 
 /**
