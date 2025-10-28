@@ -45,6 +45,15 @@ jobs:
         with:
           token: ${{ steps.app-token.outputs.token }}
 
+      # Step 4: Debug outputs.
+      - name: Debug Release
+        run: |
+          echo "prs_created: ${{ steps.release.outputs.prs_created }}"
+          echo "releases_created: ${{ steps.release.outputs.releases_created }}"
+          echo "version: ${{ steps.release.outputs.version }}"
+          echo "tag_name: ${{ steps.release.outputs.tag_name }}"
+          echo "sha: ${{ steps.release.outputs.sha }}"
+
   build:
     name: build
     needs: release
