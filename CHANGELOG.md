@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/gucasassi/devcamp/compare/v1.1.0...v1.1.1) (2025-10-28)
+
+
+### 🛠️ Build
+
+* add label to assign docker image to github repo ([5f37ffc](https://github.com/gucasassi/devcamp/commit/5f37ffcb0629a143d54cabc4c1f63fe996f54c57))
+* add label to assign docker image to github repo ([9435cbb](https://github.com/gucasassi/devcamp/commit/9435cbb4cd8034d9832965807884364cf289f438))
+
 ## [1.1.0](https://github.com/gucasassi/devcamp/compare/v1.0.0...v1.1.0) (2025-10-28)
 
 
