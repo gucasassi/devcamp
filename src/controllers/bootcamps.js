@@ -83,7 +83,17 @@ const updateBootcamp = async (req, res) => {
  * @access - Private
  */
 const deleteBootcamp = (req, res) => {
-  res.status(200).send({ success: true, message: `delete bootcamp ${req.params.id}` });
+  const bootcamp = Bootcamp.findByIdAndDelete(req.params.id).catch((err) => {
+    return res.status(400).send({ success: false, error: err.message });
+  });
+
+  // If bootcamp not found, return 404.
+  if (!bootcamp) {
+    return res.status(404).send({ success: false, error: 'Bootcamp does not exist' });
+  }
+
+  // Return success message.
+  res.status(200).send({ success: true, data: {} });
 };
 
 // Export all controllers.
