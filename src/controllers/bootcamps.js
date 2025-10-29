@@ -1,5 +1,6 @@
 import slugify from 'slugify';
 import Bootcamp from '../models/Bootcamp.js';
+import ErrorResponse from '../utils/error-response.js';
 
 /**
  * @desc   - Get all bootcamps controller.
@@ -21,19 +22,23 @@ const getBootcamps = async (req, res) => {
  * @route  - GET /api/v1/bootcamps/:id
  * @access - Public
  */
-const getBootcampById = async (req, res) => {
-  // Find bootcamp by ID.
-  const bootcamp = await Bootcamp.findById(req.params.id).catch((err) => {
-    return res.status(400).send({ success: false, error: err.message });
-  });
+const getBootcampById = async (req, res, next) => {
+  try {
+    // Find requested bootcamp.
+    const bootcamp = await Bootcamp.findById(req.params.id);
 
-  // If bootcamp not found, return 404.
-  if (!bootcamp) {
-    return res.status(404).send({ success: false, error: 'Bootcamp not found' });
+    // If bootcamp not found, return 404.
+    if (!bootcamp) {
+      // Pass errors to middleware.
+      return next(new ErrorResponse(`No bootcamp found with the provided id: '${req.params.id}'.`, 404));
+    }
+
+    // Return the found bootcamp.
+    res.status(200).send({ success: true, data: bootcamp });
+  } catch (err) {
+    // Pass errors to middleware.
+    next(err);
   }
-
-  // Return the found bootcamp.
-  res.status(200).send({ success: true, data: bootcamp });
 };
 
 /**
@@ -41,17 +46,20 @@ const getBootcampById = async (req, res) => {
  * @route  - POST /api/v1/bootcamps
  * @access - Private
  */
-const createBootcamp = async (req, res) => {
-  // Generate slug from bootcamp name.
-  const slug = slugify(req.body.name, { lower: true });
+const createBootcamp = async (req, res, next) => {
+  try {
+    // Generate slug from bootcamp name.
+    const slug = slugify(req.body.name, { lower: true });
 
-  // Create new bootcamp in the database.
-  const bootcamp = await Bootcamp.create({ ...req.body, slug }).catch((err) => {
-    return res.status(400).send({ success: false, error: err.message });
-  });
+    // Create new bootcamp in the database.
+    const bootcamp = await Bootcamp.create({ ...req.body, slug });
 
-  // Return the created bootcamp.
-  res.status(201).send({ success: true, data: bootcamp });
+    // Return the created bootcamp.
+    res.status(201).send({ success: true, data: bootcamp });
+  } catch (err) {
+    // Pass errors to middleware.
+    next(err);
+  }
 };
 
 /**
@@ -59,22 +67,26 @@ const createBootcamp = async (req, res) => {
  * @route  - PUT /api/v1/bootcamps/:id
  * @access - Private
  */
-const updateBootcamp = async (req, res) => {
-  // Update bootcamp by ID with new data.
-  const bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  }).catch((err) => {
-    return res.status(400).send({ success: false, error: err.message });
-  });
+const updateBootcamp = async (req, res, next) => {
+  try {
+    // Update requested bootcamp with new data.
+    const bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
 
-  // If bootcamp not found, return 404.
-  if (!bootcamp) {
-    return res.status(404).send({ success: false, error: 'Bootcamp does not exist' });
+    // If bootcamp not found, return 404.
+    if (!bootcamp) {
+      // Pass errors to middleware.
+      return next(new ErrorResponse(`No bootcamp found with the provided id: '${req.params.id}'.`, 404));
+    }
+
+    // Return the updated bootcamp.
+    res.status(200).send({ success: true, data: bootcamp });
+  } catch (err) {
+    // Pass errors to middleware.
+    next(err);
   }
-
-  // Return the updated bootcamp.
-  res.status(200).send({ success: true, data: bootcamp });
 };
 
 /**
@@ -82,18 +94,22 @@ const updateBootcamp = async (req, res) => {
  * @route  - DELETE /api/v1/bootcamps/:id
  * @access - Private
  */
-const deleteBootcamp = (req, res) => {
-  const bootcamp = Bootcamp.findByIdAndDelete(req.params.id).catch((err) => {
-    return res.status(400).send({ success: false, error: err.message });
-  });
+const deleteBootcamp = async (req, res, next) => {
+  try {
+    // Delete requested bootcamp.
+    const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
 
-  // If bootcamp not found, return 404.
-  if (!bootcamp) {
-    return res.status(404).send({ success: false, error: 'Bootcamp does not exist' });
+    // If bootcamp not found, return 404.
+    if (!bootcamp) {
+      return next(new ErrorResponse(`No bootcamp found with the provided id: '${req.params.id}'.`, 404));
+    }
+
+    // Return success message.
+    res.status(200).send({ success: true, data: {} });
+  } catch (err) {
+    // Pass errors to middleware.
+    next(err);
   }
-
-  // Return success message.
-  res.status(200).send({ success: true, data: {} });
 };
 
 // Export all controllers.
