@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.0](https://github.com/gucasassi/devcamp-api/compare/v1.1.1...v1.2.0) (2025-10-30)
+
+
+### ✨ Features
+
+* add error handler middleware ([12f04a1](https://github.com/gucasassi/devcamp-api/commit/12f04a1d9222218e6a3d056e53d3b2700917b2e4))
+* implement centralized mongoose error handling ([2ef770f](https://github.com/gucasassi/devcamp-api/commit/2ef770fc32d419356bef21e61550c5a6a07d6352))
+* **middleware:** introduce async handler to centralize error handling ([7451394](https://github.com/gucasassi/devcamp-api/commit/7451394a20f09b67163f85776dba73038934f387))
+
+
+### 🔄 Refactors
+
+* **bootcamp:** use mongoose middleware to automatically slugify name ([f9d98ea](https://github.com/gucasassi/devcamp-api/commit/f9d98ea355d96f4c9c56445a5c45e375790aa3db))
+
 ## [1.1.1](https://github.com/gucasassi/devcamp/compare/v1.1.0...v1.1.1) (2025-10-28)
 
 ### 🛠️ Build
