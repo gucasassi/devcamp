@@ -87,4 +87,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: "ghcr.io/${{ github.repository }}:${{ needs.release.outputs.tag_name }}"
+          tags: |
+            "ghcr.io/${{ github.repository }}:${{ needs.release.outputs.tag_name }}"
+            "ghcr.io/${{ github.repository }}:latest"
