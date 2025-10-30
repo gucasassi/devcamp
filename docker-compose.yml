@@ -1,5 +1,3 @@
-version: '3.8'
-
 # Define services for the application.
 services:
   # MONGODB: NoSQL database service.
