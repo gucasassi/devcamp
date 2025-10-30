@@ -1,6 +1,6 @@
 {
   "extends": ["@commitlint/config-conventional"],
   "rules": {
-    "scope-enum": [2, "always", ["deps", "health", "release", "setup", "bootcamp", "mongodb", "colors"]]
+    "scope-enum": [2, "always", ["deps", "health", "release", "setup", "bootcamp", "mongodb", "colors", "middleware"]]
   }
 }
