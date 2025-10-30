@@ -1,5 +1,3 @@
-import slugify from 'slugify';
-// Local imports.
 import Bootcamp from '../models/Bootcamp.js';
 import asyncHandler from '../middleware/async.js';
 import ErrorResponse from '../utils/error-response.js';
@@ -42,11 +40,8 @@ const getBootcampById = asyncHandler(async (req, res, next) => {
  * @access - Private
  */
 const createBootcamp = asyncHandler(async (req, res) => {
-  // Generate slug from bootcamp name.
-  const slug = slugify(req.body.name, { lower: true });
-
   // Create new bootcamp in the database.
-  const bootcamp = await Bootcamp.create({ ...req.body, slug });
+  const bootcamp = await Bootcamp.create(req.body);
 
   // Return the created bootcamp.
   res.status(201).send({ success: true, data: bootcamp });
