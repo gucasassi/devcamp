@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0](https://github.com/gucasassi/devcamp-api/compare/v1.2.0...v1.3.0) (2025-10-30)
+
+
+### ✨ Features
+
+* **bootcamp:** add mongoose pre save hook to generate location using node geocoder ([95fff87](https://github.com/gucasassi/devcamp-api/commit/95fff87a331a2866a3bad66a16e466c9564d5588))
+
+
+### 🛠️ Build
+
+* **setup:** update image label to associate new repo name ([007bfc7](https://github.com/gucasassi/devcamp-api/commit/007bfc73339a616db6fe24429c4840f62c025751))
+* **setup:** update legacy label format on dockerfile ([865ccf2](https://github.com/gucasassi/devcamp-api/commit/865ccf21be88a21d4a7e2fa5a33a760e1269acef))
+
 ## [1.2.0](https://github.com/gucasassi/devcamp-api/compare/v1.1.1...v1.2.0) (2025-10-30)
 
 
