@@ -59,9 +59,19 @@ APP_PORT=3000
 MONGO_URI=mongodb://172.17.0.1:27017/devcamp
 ```
 
-### 5. Running the Project
+### 5. Seed the Database (Required)
 
-Once the setup is complete, you can start the API in development mode:
+Before running the application, you must seed the database with sample data. Run the following command from the project root:
+
+```sh
+pnpm seed
+```
+
+This will insert the data from the files in the `_data` folder into your configured database.
+
+### 6. Running the Project
+
+Once the setup and seeding are complete, you can start the API in development mode:
 
 ```sh
 # Starts the server using nodemon for automatic restarts.
@@ -104,7 +114,17 @@ Ensure the `mongodb` container is running locally using `docker compose`:
 docker compose up -d mongodb
 ```
 
-### 3. Run the API
+### 3. Seed the Database (Required)
+
+Before running the application, you must seed the database with sample data. Run the following command from the project root:
+
+```sh
+pnpm seed
+```
+
+This will insert the data from the files in the `_data` folder into your configured database.
+
+### 4. Run the API
 
 Pull and run the latest stable image of `devcamp`, mapping the application port `3000` and using your local `.env` file for configuration.
 
