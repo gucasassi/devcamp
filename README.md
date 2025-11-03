@@ -27,7 +27,7 @@ Ready to get started? Just follow the next sections to [set up](#set-up) your en
 Open your terminal and clone the project:
 
 ```sh
-git clone https://github.com/gucasassi/devcamp-api.git && cd devcamp-api
+git clone https://github.com/gucasassi/devcamp.git && cd devcamp
 ```
 
 ### 2. Install Dependencies
@@ -56,7 +56,7 @@ Create a `.env` file in the project root to store your environment variables. Us
 NODE_ENV=development
 APP_PORT=3000
 # Ensure this URI matches your Docker container's address.
-MONGO_URI=mongodb://172.17.0.1:27017/devcamp-api
+MONGO_URI=mongodb://172.17.0.1:27017/devcamp
 ```
 
 ### 5. Running the Project
@@ -79,7 +79,7 @@ If you just want to test the API without a full local installation, you can dire
 You need the `docker-compose.yml` (for MongoDB) and create the `.env` file.
 
 ```sh
-git clone https://github.com/gucasassi/devcamp-api.git && cd devcamp
+git clone https://github.com/gucasassi/devcamp.git && cd devcamp
 ```
 
 Create the `.env` file.
@@ -93,7 +93,7 @@ Content for `.env`:
 ```sh
 NODE_ENV=production
 APP_PORT=3000
-MONGO_URI=mongodb://172.17.0.1:27017/devcamp-api
+MONGO_URI=mongodb://172.17.0.1:27017/devcamp
 ```
 
 ### 2. Start the Database
@@ -106,14 +106,14 @@ docker compose up -d mongodb
 
 ### 3. Run the API
 
-Pull and run the latest stable image of `devcamp-api`, mapping the application port `3000` and using your local `.env` file for configuration.
+Pull and run the latest stable image of `devcamp`, mapping the application port `3000` and using your local `.env` file for configuration.
 
 ```sh
 docker run -dit \
   -p 3000:3000 \
-  --name devcamp-api \
+  --name devcamp \
   --env-file .env \
-  ghcr.io/gucasassi/devcamp-api:latest
+  ghcr.io/gucasassi/devcamp:latest
 ```
 
 The API will be accessible at `http://localhost:3000`.
