@@ -13,9 +13,7 @@ import ErrorResponse from '../utils/error-response.js';
  */
 // eslint-disable-next-line no-unused-vars
 const errorHandler = (err, req, res, next) => {
-  // Define custom error object.
-  let error = { ...err };
-  console.log('err:', err);
+  let error = err;
 
   // Mongoose ObjectId.
   if (err.name === 'CastError') {
@@ -32,12 +30,14 @@ const errorHandler = (err, req, res, next) => {
   // Mongoose validation error.
   if (err.name === 'ValidationError') {
     const message = Object.values(err.errors).map((val) => val.message);
-    // We only send the first validation error message for simplicity.
     error = new ErrorResponse(message[0], 400);
   }
 
-  // Return the error response.
-  res.status(error.statusCode || 500).send({ success: false, error: error.message || 'Internal Server Error' });
+  // Send error response.
+  res.status(error.statusCode || 500).send({
+    success: false,
+    error: error.message || 'Internal Server Error',
+  });
 };
 
 // Exports.
