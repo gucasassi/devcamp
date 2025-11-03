@@ -1,6 +1,13 @@
 import express from 'express';
 // Import controller functions for bootcamp routes.
-import { getBootcamps, getBootcampById, createBootcamp, updateBootcamp, deleteBootcamp } from '../controllers/bootcamps.js';
+import {
+  getBootcamps,
+  getBootcampById,
+  createBootcamp,
+  updateBootcamp,
+  deleteBootcamp,
+  getBootcampsInRadius,
+} from '../controllers/bootcamps.js';
 
 /**
  * Create a new Express router for bootcamp routes.
@@ -11,6 +18,11 @@ const router = express.Router();
  * Define route handlers for getting all bootcamps and creating a new bootcamp.
  */
 router.route('/').get(getBootcamps).post(createBootcamp);
+
+/**
+ * Define route handler for getting bootcamps within a radius.
+ */
+router.route('/radius').get(getBootcampsInRadius);
 
 /**
  * Define route handlers for getting, updating, and deleting a single bootcamp by ID.
