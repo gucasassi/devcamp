@@ -18,6 +18,9 @@ connectDB();
 // Create an Express application.
 const app = express();
 
+// Use extended query parser to support complex query strings.
+app.set('query parser', 'extended');
+
 // Body parser middleware to handle JSON requests.
 app.use(express.json());
 

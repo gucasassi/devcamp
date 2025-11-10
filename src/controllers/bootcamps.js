@@ -9,8 +9,15 @@ import geocoder from '../utils/geocoder.js';
  * @access - Public
  */
 const getBootcamps = asyncHandler(async (req, res) => {
+  // Build query object for advanced filtering.
+  let queryStr = JSON.stringify({ ...req.query });
+  queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in|nin)\b/g, (match) => `$${match}`);
+
+  // Parse the query string into a JSON object.
+  const query = JSON.parse(queryStr);
+
   // Retrieve all bootcamps from the database.
-  const bootcamps = await Bootcamp.find();
+  const bootcamps = await Bootcamp.find(query);
 
   // Return the list of bootcamps.
   res.status(200).send({ success: true, count: bootcamps.length, data: bootcamps });
