@@ -9,15 +9,38 @@ import geocoder from '../utils/geocoder.js';
  * @access - Public
  */
 const getBootcamps = asyncHandler(async (req, res) => {
-  // Build query object for advanced filtering.
-  let queryStr = JSON.stringify({ ...req.query });
+  // Copy req.query to manipulate.
+  const reqQuery = { ...req.query };
+
+  // Remove fields not for filtering.
+  const removeFields = ['select', 'sort'];
+  removeFields.forEach((param) => delete reqQuery[param]);
+
+  // Create query string with operators.
+  // Note: This part can be replaced with mongoose-query-parser for more complex parsing.
+  let queryStr = JSON.stringify(reqQuery);
   queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in|nin)\b/g, (match) => `$${match}`);
 
-  // Parse the query string into a JSON object.
-  const query = JSON.parse(queryStr);
+  // Build the query.
+  let query = Bootcamp.find(JSON.parse(queryStr));
 
-  // Retrieve all bootcamps from the database.
-  const bootcamps = await Bootcamp.find(query);
+  // Select specific fields if requested.
+  if (req.query.select) {
+    const fields = req.query.select.split(',').join(' ');
+    query = query.select(fields);
+  }
+
+  // Sort results if requested.
+  if (req.query.sort) {
+    const sortBy = req.query.sort.split(',').join(' ');
+    query = query.sort(sortBy);
+  } else {
+    // Default sort by creation date descending.
+    query = query.sort('-createdAt');
+  }
+
+  // Execute the query to get bootcamps.
+  const bootcamps = await query;
 
   // Return the list of bootcamps.
   res.status(200).send({ success: true, count: bootcamps.length, data: bootcamps });
