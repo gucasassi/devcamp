@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.3.0](https://github.com/gucasassi/devcamp/compare/v1.2.0...v1.3.0) (2025-11-10)
+
+
+### ✨ Features
+
+* **bootcamp:** add advanced filtering ([eb66a50](https://github.com/gucasassi/devcamp/commit/eb66a50c233b7991784ddec8180bdd465e698800))
+* **bootcamp:** add mongoose pre save hook to generate location using node geocoder ([95fff87](https://github.com/gucasassi/devcamp/commit/95fff87a331a2866a3bad66a16e466c9564d5588))
+* **bootcamp:** add select and sorting ([4cf4aea](https://github.com/gucasassi/devcamp/commit/4cf4aeadb2d5a0e099f9c831fdf4c44dce4e29d1))
+* **bootcamp:** get bootcamps within specified radius from zipcode ([e5a1bc7](https://github.com/gucasassi/devcamp/commit/e5a1bc765afcd43aaa131e07372d814a1275f5d6))
+
+
+### 🛠️ Build
+
+* **deps:** bump eslint and rimraf to latest version ([483c9d5](https://github.com/gucasassi/devcamp/commit/483c9d5f5d873ee869d8063d113d866f33d88b0b))
+* **setup:** rename porject ([9d5f1c0](https://github.com/gucasassi/devcamp/commit/9d5f1c0cd75512fbfe5389084a7c43639944145b))
+* **setup:** update image label to associate new repo name ([007bfc7](https://github.com/gucasassi/devcamp/commit/007bfc73339a616db6fe24429c4840f62c025751))
+* **setup:** update legacy label format on dockerfile ([865ccf2](https://github.com/gucasassi/devcamp/commit/865ccf21be88a21d4a7e2fa5a33a760e1269acef))
+
+
+### 🔄 Refactors
+
+* **middleware:** resolve issues with error message property ([5109fef](https://github.com/gucasassi/devcamp/commit/5109fef3d8e904ad4336315d94092dfd97c4ffdf))
+
 ## [1.2.0](https://github.com/gucasassi/devcamp/compare/v1.1.1...v1.2.0) (2025-10-30)
 
 ### ✨ Features
