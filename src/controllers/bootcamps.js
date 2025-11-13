@@ -21,8 +21,8 @@ const getBootcamps = asyncHandler(async (req, res) => {
   let queryStr = JSON.stringify(reqQuery);
   queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in|nin)\b/g, (match) => `$${match}`);
 
-  // Build the query.
-  let query = Bootcamp.find(JSON.parse(queryStr));
+  // Build the query with population of courses.
+  let query = Bootcamp.find(JSON.parse(queryStr)).populate('courses');
 
   // Select specific fields if requested.
   if (req.query.select) {
