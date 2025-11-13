@@ -13,7 +13,7 @@ const getBootcamps = asyncHandler(async (req, res) => {
   const reqQuery = { ...req.query };
 
   // Remove fields not for filtering.
-  const removeFields = ['select', 'sort'];
+  const removeFields = ['select', 'sort', 'page', 'limit'];
   removeFields.forEach((param) => delete reqQuery[param]);
 
   // Create query string with operators.
@@ -39,11 +39,44 @@ const getBootcamps = asyncHandler(async (req, res) => {
     query = query.sort('-createdAt');
   }
 
+  // Pagination setup.
+  const page = parseInt(req.query.page, 10) || 1;
+  const limit = parseInt(req.query.limit, 10) || 25;
+
+  // Calculate the number of documents to skip.
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+  const total = await Bootcamp.countDocuments();
+
+  // Apply pagination to the query.
+  query = query.skip(startIndex).limit(limit);
+
+  // Prepare pagination result.
+  const pagination = {};
+
+  // Check for next page, if there are more results.
+  // Add next and previous page info to pagination object.
+  if (endIndex < total) {
+    pagination.next = {
+      page: page + 1,
+      limit,
+    };
+  }
+
+  // Check for previous page, if not on the first page.
+  // Add previous page info to pagination object.
+  if (startIndex > 0) {
+    pagination.prev = {
+      page: page - 1,
+      limit,
+    };
+  }
+
   // Execute the query to get bootcamps.
   const bootcamps = await query;
 
   // Return the list of bootcamps.
-  res.status(200).send({ success: true, count: bootcamps.length, data: bootcamps });
+  res.status(200).send({ success: true, count: bootcamps.length, pagination, data: bootcamps });
 });
 
 /**
