@@ -8,11 +8,18 @@ import {
   deleteBootcamp,
   getBootcampsInRadius,
 } from '../controllers/bootcamps.js';
+import coursesRouter from './courses.js';
 
 /**
  * Create a new Express router for bootcamp routes.
  */
 const router = express.Router();
+
+/***
+ * Mount the courses router on the bootcamp routes to handle nested course routes.
+ * This allows access to courses related to a specific bootcamp.
+ */
+router.use('/:bootcampId/courses', coursesRouter);
 
 /**
  * Define route handlers for getting all bootcamps and creating a new bootcamp.
