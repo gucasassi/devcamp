@@ -1,6 +1,6 @@
 import express from 'express';
 // Import controllers.
-import { getCourses, getCourseById } from '../controllers/courses.js';
+import { getCourses, getCourseById, createCourse } from '../controllers/courses.js';
 
 /**
  * Create a new Express router for course routes.
@@ -9,9 +9,9 @@ import { getCourses, getCourseById } from '../controllers/courses.js';
 const router = express.Router({ mergeParams: true });
 
 /**
- * Define route handler for getting all courses or courses for a specific bootcamp.
+ * Define route handlers for getting all courses and creating a new course.
  */
-router.route('/').get(getCourses);
+router.route('/').get(getCourses).post(createCourse);
 
 /**
  * Define route handler for getting a single course by ID.

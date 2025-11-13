@@ -1,4 +1,5 @@
 import Course from '../models/Course.js';
+import Bootcamp from '../models/Bootcamp.js';
 import ErrorResponse from '../utils/error-response.js';
 import asyncHandler from '../middleware/async.js';
 
@@ -53,5 +54,30 @@ const getCourseById = asyncHandler(async (req, res, next) => {
   res.status(200).send({ success: true, data: course });
 });
 
+/**
+ * @desc   - Create new course controller.
+ * @route  - POST /api/v1/bootcamps/:bootcampId/courses
+ * @access - Private
+ */
+const createCourse = asyncHandler(async (req, res) => {
+  // Set bootcamp field from URL parameter to request body.
+  // This associates the new course with the specified bootcamp.
+  req.body.bootcamp = req.params.bootcampId;
+
+  // Verify that the bootcamp exists.
+  const bootcamp = await Bootcamp.findById(req.params.bootcampId);
+
+  // If bootcamp not found, return 404.
+  if (!bootcamp) {
+    return next(new ErrorResponse(`No bootcamp found with the provided id: '${req.params.bootcampId}'.`, 404));
+  }
+
+  // Create new course in the database.
+  const course = await Course.create(req.body);
+
+  // Return the created course.
+  res.status(201).send({ success: true, data: course });
+});
+
 // Export controllers.
-export { getCourses, getCourseById };
+export { getCourses, getCourseById, createCourse };
