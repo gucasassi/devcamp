@@ -3,8 +3,14 @@ import fs from 'fs';
 import colors from 'colors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-// Load model.
+
+// Load models.
 import Bootcamp from '../models/Bootcamp.js';
+import Course from '../models/Course.js';
+
+// Read data files.
+const bootcamps = JSON.parse(fs.readFileSync(`${process.cwd()}/_data/bootcamps.json`, 'utf-8'));
+const courses = JSON.parse(fs.readFileSync(`${process.cwd()}/_data/courses.json`, 'utf-8'));
 
 // Load env vars
 dotenv.config();
@@ -12,14 +18,12 @@ dotenv.config();
 // Connect to DB.
 mongoose.connect(process.env.MONGO_URI);
 
-// Read JSON files.
-const bootcamps = JSON.parse(fs.readFileSync(`${process.cwd()}/_data/bootcamps.json`, 'utf-8'));
-
-// Seed Bootcamps.
-const seedBootcamps = async () => {
+// Seed all data.
+export const insertData = async () => {
   try {
     await Bootcamp.create(bootcamps);
-    console.log('Bootcamps: Seeded'.green);
+    await Course.create(courses);
+    console.log('Data: Inserted'.green);
     process.exit();
   } catch (err) {
     console.error(err);
@@ -27,11 +31,12 @@ const seedBootcamps = async () => {
   }
 };
 
-// Delete Bootcamps.
-const deleteBootcamps = async () => {
+// Delete all data.
+export const deleteData = async () => {
   try {
     await Bootcamp.deleteMany();
-    console.log('Bootcamps: Deleted'.yellow);
+    await Course.deleteMany();
+    console.log('Data: Deleted'.yellow);
     process.exit();
   } catch (err) {
     console.error(err);
@@ -41,7 +46,7 @@ const deleteBootcamps = async () => {
 
 // Run script.
 if (process.argv[2] === '-i') {
-  seedBootcamps();
+  insertData();
 } else if (process.argv[2] === '-d') {
-  deleteBootcamps();
+  deleteData();
 }
