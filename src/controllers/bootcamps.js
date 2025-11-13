@@ -140,12 +140,16 @@ const updateBootcamp = asyncHandler(async (req, res, next) => {
  */
 const deleteBootcamp = asyncHandler(async (req, res, next) => {
   // Delete requested bootcamp.
-  const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
+  // Note: Using findByIdAndDelete would not trigger the middleware.
+  const bootcamp = await Bootcamp.findById(req.params.id);
 
   // If bootcamp not found, return 404.
   if (!bootcamp) {
     return next(new ErrorResponse(`No bootcamp found with the provided id: '${req.params.id}'.`, 404));
   }
+
+  // Delete with deleteOne to trigger pre 'deleteOne' middleware for cascade delete.
+  await bootcamp.deleteOne({ id: req.params.id });
 
   // Return success message.
   res.status(200).send({ success: true, data: {} });

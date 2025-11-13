@@ -148,6 +148,13 @@ BootcampSchema.pre('save', async function (next) {
   next();
 });
 
+// Cascade delete courses when a bootcamp is deleted.
+// NOTE: Using deleteOne with { document: true, query: false } to ensure middleware is triggered.
+BootcampSchema.pre('deleteOne', { document: true, query: false }, async function (next) {
+  await this.model('Course').deleteMany({ bootcamp: this._id });
+  next();
+});
+
 // Virtual populate for courses.
 BootcampSchema.virtual('courses', {
   ref: 'Course',
