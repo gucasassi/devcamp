@@ -8,6 +8,7 @@ import express from 'express';
 import connectDB from './config/db.js';
 import health from './routes/health.js';
 import bootcamps from './routes/bootcamps.js';
+import courses from './routes/courses.js';
 
 // Load environment variables from .env file.
 dotenv.config();
@@ -32,6 +33,7 @@ if (process.env.NODE_ENV === 'development') {
 // Mount all routes.
 app.use('/health', health);
 app.use('/api/v1/bootcamps', bootcamps);
+app.use('/api/v1/courses', courses);
 
 // Error handling middleware
 // NOTE: Should be the last piece of middleware added.
