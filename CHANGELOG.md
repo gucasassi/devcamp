@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.4.0](https://github.com/gucasassi/devcamp/compare/v1.3.0...v1.4.0) (2025-11-13)
+
+
+### ✨ Features
+
+* **bootcamp:** add pagination ([fbdf58b](https://github.com/gucasassi/devcamp/commit/fbdf58b09500740d17d0ea57472a1d7d1109dc38))
+* **bootcamp:** delete courses on cascade when bootcamp is deleted ([5b1dd56](https://github.com/gucasassi/devcamp/commit/5b1dd56b7a48853c7a172913965ab4dd9a724329))
+* **bootcamp:** implements get all courses for specific bootcamp ([f7521ee](https://github.com/gucasassi/devcamp/commit/f7521eed4c39b451d82929cb15afeaee87a170bf))
+* **bootcamp:** populate courses data using virtuals ([88b735b](https://github.com/gucasassi/devcamp/commit/88b735b59e0127481b26ebe62bf3c8357e8224c3))
+* **course:** add course model and seeder ([3d6b7c9](https://github.com/gucasassi/devcamp/commit/3d6b7c90053c8ec3e266b776306a84652468faea))
+* **course:** get single course by id ([19a3423](https://github.com/gucasassi/devcamp/commit/19a3423d47575914340dcb7f4b49fd61684e02ba))
+* **course:** implement create course and assign to bootcamp ([0253bf3](https://github.com/gucasassi/devcamp/commit/0253bf36a63d0340bf88b69be28367c6ad5ae367))
+* **course:** implement get all courses ([95a4845](https://github.com/gucasassi/devcamp/commit/95a48456d83d66338f0372c373fe5ff0b44c1472))
+* **course:** populate bootcamp name and description ([7ecbe4d](https://github.com/gucasassi/devcamp/commit/7ecbe4dec3dfb4c955cc417b0484ace168d53d4b))
+
 ## [1.3.0](https://github.com/gucasassi/devcamp/compare/v1.2.0...v1.3.0) (2025-11-10)
 
 
