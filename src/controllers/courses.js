@@ -1,4 +1,5 @@
 import Course from '../models/Course.js';
+import ErrorResponse from '../utils/error-response.js';
 import asyncHandler from '../middleware/async.js';
 
 /**
@@ -33,5 +34,24 @@ const getCourses = asyncHandler(async (req, res) => {
   });
 });
 
+/**
+ * @desc   - Get single course controller.
+ * @route  - GET /api/v1/courses/:id
+ * @access - Public
+ */
+const getCourseById = asyncHandler(async (req, res, next) => {
+  // Find requested course.
+  const course = await Course.findById(req.params.id);
+
+  // If course not found, return 404.
+  if (!course) {
+    // Pass errors to middleware.
+    return next(new ErrorResponse(`No course found with the provided id: '${req.params.id}'.`, 404));
+  }
+
+  // Return the found course.
+  res.status(200).send({ success: true, data: course });
+});
+
 // Export controllers.
-export { getCourses };
+export { getCourses, getCourseById };
