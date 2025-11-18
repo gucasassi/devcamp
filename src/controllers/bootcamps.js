@@ -19,7 +19,7 @@ const getBootcamps = asyncHandler(async (req, res) => {
   // Create query string with operators.
   // Note: This part can be replaced with mongoose-query-parser for more complex parsing.
   let queryStr = JSON.stringify(reqQuery);
-  queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in|nin)\b/g, (match) => `$${match}`);
+  queryStr = queryStr.replaceAll(/\b(gt|gte|lt|lte|in|nin)\b/g, (match) => `$${match}`);
 
   // Build the query with population of courses.
   let query = Bootcamp.find(JSON.parse(queryStr)).populate('courses');
