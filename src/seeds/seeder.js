@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'node:fs';
 // eslint-disable-next-line no-unused-vars
 import colors from 'colors';
 import mongoose from 'mongoose';
