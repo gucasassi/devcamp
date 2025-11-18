@@ -1,6 +1,6 @@
 
 # Release workflow for automated semantic versioning.
-name: release
+name: Release
 
 # Trigger workflow on push to main branch.
 on:
