@@ -79,5 +79,29 @@ const createCourse = asyncHandler(async (req, res) => {
   res.status(201).send({ success: true, data: course });
 });
 
+/**
+ * @desc   - Update course controller.
+ * @route  - PUT /api/v1/courses/:id
+ * @access - Private
+ */
+const updateCourse = asyncHandler(async (req, res, next) => {
+  // Find and update the course by ID.
+  let course = await Course.findById(req.params.id);
+
+  // If course not found, return 404.
+  if (!course) {
+    return next(new ErrorResponse(`No course found with the provided id: '${req.params.id}'.`, 404));
+  }
+
+  // Update course fields.
+  course = await Course.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  // Return the updated course.
+  res.status(200).send({ success: true, data: course });
+});
+
 // Export controllers.
-export { getCourses, getCourseById, createCourse };
+export { getCourses, getCourseById, createCourse, updateCourse };

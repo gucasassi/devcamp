@@ -1,6 +1,6 @@
 import express from 'express';
 // Import controllers.
-import { getCourses, getCourseById, createCourse } from '../controllers/courses.js';
+import { getCourses, getCourseById, createCourse, updateCourse } from '../controllers/courses.js';
 
 /**
  * Create a new Express router for course routes.
@@ -16,7 +16,7 @@ router.route('/').get(getCourses).post(createCourse);
 /**
  * Define route handler for getting a single course by ID.
  */
-router.route('/:id').get(getCourseById);
+router.route('/:id').get(getCourseById).put(updateCourse);
 
 /**
  * Export the router as the default export of this module.
