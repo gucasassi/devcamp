@@ -103,5 +103,26 @@ const updateCourse = asyncHandler(async (req, res, next) => {
   res.status(200).send({ success: true, data: course });
 });
 
+/**
+ * @desc   - Delete course controller.
+ * @route  - DELETE /api/v1/courses/:id
+ * @access - Private
+ */
+const deleteCourse = asyncHandler(async (req, res, next) => {
+  // Find the course by ID.
+  const course = await Course.findById(req.params.id);
+
+  // If course not found, return 404.
+  if (!course) {
+    return next(new ErrorResponse(`No course found with the provided id: '${req.params.id}'.`, 404));
+  }
+
+  // Remove the course from the database.
+  await course.deleteOne({ id: req.params.id });
+
+  // Return success message.
+  res.status(200).send({ success: true, data: {} });
+});
+
 // Export controllers.
-export { getCourses, getCourseById, createCourse, updateCourse };
+export { getCourses, getCourseById, createCourse, updateCourse, deleteCourse };
