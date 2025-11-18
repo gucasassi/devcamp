@@ -20,7 +20,7 @@ jobs:
   # Note: This job exports an output 'releases_created' to indicate if releases were created.
   release:
     name: Execute
-    uses: gucasassi/gh-actions-hub/.github/workflows/release-please.yml@main
+    uses: gucasassi/gh-actions-hub/.github/workflows/release-please.yml@01b7012f3491870bdc84d7845c97bcb17316e9a0
     secrets: inherit
 
   # Job 2: Build Docker image if release was created in the previous job.
@@ -28,7 +28,7 @@ jobs:
   build:
     name: Build
     needs: release
-    if: needs.release.outputs.releases_created == 'true'
+    if: needs.release.outputs.prs_created == 'true'
     uses: gucasassi/gh-actions-hub/.github/workflows/docker-build-push.yml@main
     with:
       repository: ${{ github.repository }}
