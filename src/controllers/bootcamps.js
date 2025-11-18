@@ -40,8 +40,8 @@ const getBootcamps = asyncHandler(async (req, res) => {
   }
 
   // Pagination setup.
-  const page = parseInt(req.query.page, 10) || 1;
-  const limit = parseInt(req.query.limit, 10) || 25;
+  const page = Number.parseInt(req.query.page, 10) || 1;
+  const limit = Number.parseInt(req.query.limit, 10) || 25;
 
   // Calculate the number of documents to skip.
   const startIndex = (page - 1) * limit;
