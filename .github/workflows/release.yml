@@ -46,8 +46,8 @@ jobs:
     uses: gucasassi/gh-actions-hub/.github/workflows/deploy-aws-ecs.yml@main
     with:
       env: develop
-      repository: ${{ github.repository }}
-      service: ${{ github.repository }}
+      cluster: ${{ github.repository }}
+      service: "${{ github.repository }}-develop"
     secrets: inherit
 
   # Job4: Deploy application to DEV environment on Homelab.
@@ -59,6 +59,6 @@ jobs:
     uses: gucasassi/gh-actions-hub/.github/workflows/deploy-with-gitops.yml@main
     with:
       env: develop
-      repository: ${{ github.repository }}
-      service: ${{ github.repository }}
+      app: ${{ github.repository }}
+      gitops-repo: "${{ github.repository }}-gitops"
     secrets: inherit
