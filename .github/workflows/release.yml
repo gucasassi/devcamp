@@ -29,7 +29,7 @@ jobs:
     name: Build
     needs: release
     if: needs.release.outputs.prs_created == 'true'
-    uses: gucasassi/gh-actions-hub/.github/workflows/docker-build-push.yml@main
+    uses: gucasassi/gh-actions-hub/.github/workflows/docker-build-push.yml@8f48edb6e3cdf74ed8fbdc64f0f4ba0280d748ce
     with:
       repository: ${{ github.repository }}
     secrets: inherit
@@ -37,7 +37,7 @@ jobs:
   # Job3: Deploy application to DEV environment on AWS ECS.
   # NOTE: This job depends on the build job due to the image upload artifact. Also, assumes that we use GitHub Container Registry.
   deploy_aws:
-    name: Deploy (DEV)
+    name: Deploy (AWS)
     needs: [ release, build ]
     
     # Whether to deploy to AWS infrastructure or local homelab.
@@ -50,10 +50,10 @@ jobs:
       service: ${{ github.repository }}
     secrets: inherit
 
-  # Job4: Deploy application to DEV environment on CPDS Homelab.
+  # Job4: Deploy application to DEV environment on Homelab.
   # NOTE: This job depends on the build job due to the image upload artifact. Also, assumes that we use GitHub Container Registry.
   deploy_homelab:
-    name: Deploy (DEV)
+    name: Deploy (HOMELAB)
     needs: [ release, build ]
     if: ${{ vars.DEPLOY_TO_HOMELAB == 'true' }}
     uses: gucasassi/gh-actions-hub/.github/workflows/deploy-with-gitops.yml@main
