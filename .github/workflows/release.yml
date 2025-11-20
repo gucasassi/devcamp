@@ -16,15 +16,15 @@ permissions:
   issues: write
 
 jobs:
-  # Job 1: Create releases or prs using release-please-action.
-  # Note: This job exports an output 'releases_created' to indicate if releases were created.
+  # Job1: Create releases or prs using release-please-action.
+  # NOTE: This job exports an output 'releases_created' to indicate if releases were created.
   release:
     name: Execute
     uses: gucasassi/gh-actions-hub/.github/workflows/release-please.yml@01b7012f3491870bdc84d7845c97bcb17316e9a0
     secrets: inherit
 
-  # Job 2: Build Docker image if release was created in the previous job.
-  # Note: This job upload and artifact using upload-artifact action with the pushed image digest.
+  # Job2: Build Docker image if pr was created or updated in the previous job.
+  # NOTE: This job upload and artifact using upload-artifact action with the pushed image digest.
   build:
     name: Build
     needs: release
@@ -32,4 +32,33 @@ jobs:
     uses: gucasassi/gh-actions-hub/.github/workflows/docker-build-push.yml@main
     with:
       repository: ${{ github.repository }}
+    secrets: inherit
+
+  # Job3: Deploy application to DEV environment on AWS ECS.
+  # NOTE: This job depends on the build job due to the image upload artifact. Also, assumes that we use GitHub Container Registry.
+  deploy_aws:
+    name: Deploy (DEV)
+    needs: [ release, build ]
+    
+    # Whether to deploy to AWS infrastructure or local homelab.
+    # NOTE: If you want to create a infrastructure to deploy to AWS, please see: https://github.com/gucasassi/devcamp-infra.git repository.
+    if: ${{ vars.DEPLOY_TO_AWS == 'true' }}
+    uses: gucasassi/gh-actions-hub/.github/workflows/deploy-aws-ecs.yml@main
+    with:
+      env: develop
+      repository: ${{ github.repository }}
+      service: ${{ github.repository }}
+    secrets: inherit
+
+  # Job4: Deploy application to DEV environment on CPDS Homelab.
+  # NOTE: This job depends on the build job due to the image upload artifact. Also, assumes that we use GitHub Container Registry.
+  deploy_homelab:
+    name: Deploy (DEV)
+    needs: [ release, build ]
+    if: ${{ vars.DEPLOY_TO_HOMELAB == 'true' }}
+    uses: gucasassi/gh-actions-hub/.github/workflows/deploy-with-gitops.yml@main
+    with:
+      env: develop
+      repository: ${{ github.repository }}
+      service: ${{ github.repository }}
     secrets: inherit
