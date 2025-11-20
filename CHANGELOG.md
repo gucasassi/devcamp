@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.0](https://github.com/gucasassi/devcamp/compare/v1.4.0...v1.5.0) (2025-11-20)
+
+
+### ✨ Features
+
+* feat01 ([8d2c89e](https://github.com/gucasassi/devcamp/commit/8d2c89e11c7fdae2671ff5ecdc76d2eb86a60171))
+* feat02 ([8b62bc1](https://github.com/gucasassi/devcamp/commit/8b62bc10ebdaca4d52eb60df7db4e22441272e40))
+
 ## [1.4.0](https://github.com/gucasassi/devcamp/compare/v1.3.0...v1.4.0) (2025-11-18)
 
 
